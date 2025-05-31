@@ -25,6 +25,7 @@ Deploy n8n (workflow automation platform) on Render.com with persistent disk sto
 - `N8N_BASIC_AUTH_USER=admin` - Default username
 - `N8N_BASIC_AUTH_PASSWORD=admin123` - Default password
 - `TZ=America/New_York` - Timezone setting
+- `N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false` - Fixes permission warnings
 
 ### Persistent Storage
 - **Mount Path**: `/home/node/.n8n`
@@ -67,6 +68,41 @@ To upgrade your deployment:
 1. Update the files in this repository
 2. Push changes to your fork
 3. Render will automatically redeploy with `autoDeploy: true`
+
+## 🔧 Troubleshooting
+
+### Common Issues:
+
+#### 1. "command n8n not found" Error
+- **Solution**: This has been fixed in the latest Dockerfile using proper entrypoint
+- **Action**: Ensure you're using the latest version and redeploy
+
+#### 2. Permission Warnings in Logs
+- **Status**: These are normal and handled by `N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false`
+- **Action**: No action needed, n8n will work properly
+
+#### 3. Service Won't Start
+- **Check**: Verify all environment variables are properly set
+- **Action**: Review the Render service logs for specific error messages
+
+#### 4. Can't Access n8n Interface
+- **Check**: Ensure the service is running and the URL is correct
+- **Action**: Wait for deployment to complete (can take 2-3 minutes)
+
+#### 5. Authentication Issues
+- **Default**: Use `admin` / `admin123`
+- **Action**: Check environment variables in Render dashboard
+
+### Debug Steps:
+1. Check Render service logs for errors
+2. Verify environment variables are set correctly
+3. Ensure persistent disk is properly mounted
+4. Try redeploying the service
+
+### Getting Help:
+- Check [Render Documentation](https://render.com/docs/troubleshooting-deploys)
+- Review [n8n Documentation](https://docs.n8n.io/)
+- Open an issue in this repository
 
 ## 📚 Learn More
 
